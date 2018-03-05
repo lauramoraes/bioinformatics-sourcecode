@@ -102,37 +102,37 @@ parfor i=1:length(combinations)
     [markers_plot, index_sort] = sort(abs(used_markers), 'descend');
     
     %% Borders using MaxSe and MaxSp
-%     upper_limit_0 = max(y_hat(Y == 0));
-%     upper_limit_1 = min(y_hat(Y == 1 & y_hat > upper_limit_0));
-%     upper_limit = mean([upper_limit_0 upper_limit_1]);
-%     lower_limit_1 = min(y_hat(Y == 1));
-%     lower_limit_0 = max(y_hat(Y == 0 & y_hat < lower_limit_1));
-%     lower_limit = mean([lower_limit_0 lower_limit_1]);
+     upper_limit_0 = max(y_hat(Y == 0));
+     upper_limit_1 = min(y_hat(Y == 1 & y_hat > upper_limit_0));
+     upper_limit = mean([upper_limit_0 upper_limit_1]);
+     lower_limit_1 = min(y_hat(Y == 1));
+     lower_limit_0 = max(y_hat(Y == 0 & y_hat < lower_limit_1));
+     lower_limit = mean([lower_limit_0 lower_limit_1]);
     
     %% Borders using Youden and MaxDor
-    h_roc = figure('Visible', 'on');
-    [fpr,tpr,T] = perfcurve(Y, y_hat, 1);
-    % Youden
-    [value_youden, idx_youden] = max(tpr-fpr);
-    youden_thr = T(idx_youden);
+    %h_roc = figure('Visible', 'on');
+    %[fpr,tpr,T] = perfcurve(Y, y_hat, 1);
+    %% Youden
+    %[value_youden, idx_youden] = max(tpr-fpr);
+    %youden_thr = T(idx_youden);
     
-    % MaxDor
-    fpr_dor = fpr + 0.01;
-    tpr_dor = tpr + 0.01;
-    [value_maxdor, idx_maxdor] = max(log(tpr_dor) - log(1-tpr_dor) - (log(fpr_dor) - log(1-fpr_dor)));
-    maxdor_thr = T(idx_maxdor);
+    %% MaxDor
+    %fpr_dor = fpr + 0.01;
+    %tpr_dor = tpr + 0.01;
+    %[value_maxdor, idx_maxdor] = max(log(tpr_dor) - log(1-tpr_dor) - (log(fpr_dor) - log(1-fpr_dor)));
+    %maxdor_thr = T(idx_maxdor);
     
-    plot(fpr,tpr);
-    hold on;
-    scatter(fpr(idx_youden), tpr(idx_youden));
-    scatter(fpr(idx_maxdor), tpr(idx_maxdor));
-    legend('ROC', 'Youden', 'MaxDor2');
+    %plot(fpr,tpr);
+    %hold on;
+    %scatter(fpr(idx_youden), tpr(idx_youden));
+    %scatter(fpr(idx_maxdor), tpr(idx_maxdor));
+    %legend('ROC', 'Youden', 'MaxDor2');
+    %upper_limit = max(youden_thr, maxdor_thr);
+    %lower_limit = min(youden_thr, maxdor_thr);
     
     h1 = figure('Visible', 'on');
     scatter(X(:,index_sort(1)),y_hat(:,1), 80, Y, 'LineWidth',2);
     hold on
-    upper_limit = max(youden_thr, maxdor_thr);
-    lower_limit = min(youden_thr, maxdor_thr);
     
     line([min(X(:,index_sort(1))) max(X(:,index_sort(1)))], [0.5 0.5])
     line([min(X(:,index_sort(1))) max(X(:,index_sort(1)))], [upper_limit upper_limit], 'LineStyle', '--', 'Color', 'red')
@@ -150,11 +150,11 @@ parfor i=1:length(combinations)
     set(gca,'yticklabel',categories);
     
     [pathstr,name,ext] = fileparts(borders_matrix_path);
-    fig_name_roc = sprintf(strcat(pathstr, '/roc_%s'), sufix);
+    %fig_name_roc = sprintf(strcat(pathstr, '/roc_%s'), sufix);
     fig_name1 = sprintf(strcat(pathstr, '/logist_%s'), sufix);
     fig_name2 = sprintf(strcat(pathstr, '/confusion_mat_%s'), sufix);
-    saveas(h_roc, fig_name_roc,'fig');
-    saveas(h_roc, fig_name_roc,'png');
+    %saveas(h_roc, fig_name_roc,'fig');
+    %saveas(h_roc, fig_name_roc,'png');
     saveas(h1, fig_name1,'fig');
     saveas(h1, fig_name1,'png');
     saveas(h2, fig_name2,'fig');
