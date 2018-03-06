@@ -1,2 +1,3 @@
 *.m linguist-language=Matlab
 *.F linguist-language=Matlab
+Classificadores/glmnet_matlab/* linguistic-vendored
